@@ -1,0 +1,66 @@
+{% extends 'perfil.html '%}
+
+{% block form %}
+<div class="container">
+    <hr/>
+    <div class="row">
+        <div class="col">
+            <form method="POST" action="" class="border p-4 m-2" enctype="multipart/form-data">
+                {{ form_editar_perfil.csrf_token }}
+                <legend>Fazer Login</legend>
+                <fieldset>
+                    <div class="form-group">
+                        {{ form_editar_perfil.username.label(class='form-control-label') }}
+                        {% if form_editar_perfil.username.errors %}
+                            {{ form_editar_perfil.username(class='form-control is-invalid') }}
+                            <div class="invalid-feedback">
+                                {% for error in form_editar_perfil.username.errors %}
+                                    {{ error }}
+                            </div>
+                            {% endfor %}
+                        {% else %}
+                            {{ form_editar_perfil.username(class='form-control') }}
+                        {% endif %}             
+                    </div>
+                    <div class="form-group">
+                        {{ form_editar_perfil.email.label(class='form-control-label') }}
+                        {% if form_editar_perfil.email.errors %}
+                            {{ form_editar_perfil.email(class='form-control is-invalid') }}
+                            <div class="invalid-feedback">
+                                {% for error in form_editar_perfil.email.errors %}
+                                {{ error }}
+                            </div>
+                            {% endfor %}
+                        {% else %}
+                            {{ form_editar_perfil.email(class='form-control') }}
+                        {% endif %}           
+                    </div>
+                    <div class="form-group">
+                        {{ form_editar_perfil.foto_perfil.label }}
+                        {{ form_editar_perfil.foto_perfil(class='form-control-file') }}
+                        {% if form_editar_perfil.foto_perfil.errors %}
+                            {% for error in form_editar_perfil.foto_perfil.errors %}
+                                <span class="text-danger"><br>
+                                    {{ error }}
+                                </span>
+                            
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                    <hr>
+                    <p>Cursos</p>
+                    {% for campo in form_editar_perfil %}
+                        {% if 'curso_' in campo.name %}
+                        <div class="form-group">
+                            {{ campo(class='form-check-input') }}
+                            {{ campo.label(class='form-check-label') }}           
+                        </div>
+                        {% endif %} 
+                    {% endfor %}
+                </fieldset>
+                {{ form_editar_perfil.btn_submit_atualizar_conta(class='btn btn-primary mt-2') }}
+            </form>             
+        </div>
+    </div>
+</div>
+{% endblock %}
