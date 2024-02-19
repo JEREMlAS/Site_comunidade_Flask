@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 import sqlalchemy
+import os
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'b5801020b88df23191c9bb0d0b73effb'
