@@ -7,6 +7,7 @@ import os
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'b5801020b88df23191c9bb0d0b73effb'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///comunidade.db'
 if os.getenv("DATABASE_URL"):
   app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("DATABASE_URL")
 else:
@@ -23,11 +24,14 @@ from site_comunidade import models
 engine = sqlalchemy.create_engine(app.config['SQLALCHEMY_DATABASE_URI'])
 inspector = sqlalchemy.inspect(engine)
 if not inspector.has_table("usuario"):
-    with app.app_context():
-        database.drop_all()
-        database.create_all()
-
+  with app.app_context():
+    database.drop_all()
+    database.create_all()
+    print('Base Criada')
+else:
+  print('Base já existe')
 from site_comunidade import routes
+
 
 
 
